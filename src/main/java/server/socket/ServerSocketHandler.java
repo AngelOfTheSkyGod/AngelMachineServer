@@ -31,6 +31,7 @@ public class ServerSocketHandler extends Thread {
             try {
 
                 Socket clientSocket = serverSocket.accept();
+                System.out.println("CLIENT CONNECTING!");
                 executor.submit(()->{
                     ClientSocketHandler clientSocketHandler = null;
                     try {
