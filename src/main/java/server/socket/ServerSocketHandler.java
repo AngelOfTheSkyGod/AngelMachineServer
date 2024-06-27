@@ -22,7 +22,7 @@ public class ServerSocketHandler extends Thread {
     public ServerSocketHandler(int portNum, ServerState serverState) throws IOException {
         port = portNum;
         System.out.println("connecting to port" + port);
-        serverSocket = new ServerSocket(8080, 0, InetAddress.getByName("76.141.228.122"));
+        serverSocket = new ServerSocket(8080, 0, InetAddress.getByName("10.0.0.205"));
         System.out.println("server socket: " + serverSocket);
     }
 
