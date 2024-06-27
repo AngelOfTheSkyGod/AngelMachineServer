@@ -20,7 +20,9 @@ public class ServerSocketHandler extends Thread {
     ServerSocket serverSocket;
     public ServerSocketHandler(int portNum, ServerState serverState) throws IOException {
         port = portNum;
+        System.out.println("connecting to port" + port);
         serverSocket = new ServerSocket(port);
+        System.out.println("server socket: " + serverSocket);
     }
 
     @Override
