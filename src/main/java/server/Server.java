@@ -19,6 +19,7 @@ public class Server {
     ServerSocketHandler serverSocketHandler = null;
     public Server() throws IOException {
         serverState = new ServerState();
+        port = 8080;
         serverSocketHandler = new ServerSocketHandler(port, serverState);
     }
     public static Server getServer() throws IOException {
