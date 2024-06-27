@@ -7,6 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.Executors;
@@ -21,7 +22,7 @@ public class ServerSocketHandler extends Thread {
     public ServerSocketHandler(int portNum, ServerState serverState) throws IOException {
         port = portNum;
         System.out.println("connecting to port" + port);
-        serverSocket = new ServerSocket(port);
+        serverSocket = new ServerSocket(8080, 0, InetAddress.getByName("0.0.0.0"));
         System.out.println("server socket: " + serverSocket);
     }
 
