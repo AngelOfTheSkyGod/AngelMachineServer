@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.Arrays;
 
 @Getter
 @Setter
@@ -41,12 +40,7 @@ public class ClientSocketHandler extends Thread{
                 while((b = in.read(buffer)) != -1){
                     result.write(buffer, 0, b);
                 }
-                for (int i = 0; i < 1024; i++){
-                    if (buffer[i] == '0'){
-                        break;
-                    }
-                    System.out.println(buffer[i]);
-                }
+                System.out.println(result);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
