@@ -39,8 +39,13 @@ public class ClientSocketHandler extends Thread{
                 byte[] buffer = new byte[1024];
                 int b;
                 while((b = in.read(buffer)) != -1){
-                    System.out.println("reading " + Arrays.toString(buffer));
                     result.write(buffer, 0, b);
+                }
+                for (int i = 0; i < 1024; i++){
+                    if (buffer[i] == '0'){
+                        break;
+                    }
+                    System.out.println(buffer[i]);
                 }
             }
         } catch (IOException e) {
