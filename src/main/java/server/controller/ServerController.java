@@ -1,6 +1,7 @@
 package server.controller;
 import server.model.ServerObject;
 import server.Server;
+import server.model.ServerState;
 import server.socket.ClientSocketHandler;
 
 import java.io.IOException;
@@ -42,7 +43,7 @@ public class ServerController {
             device.getClientController().sendCommand(clientSocketHandler, commandObject);
         }
     }
-    public static void handleCommand(ClientSocketHandler clientSocketHandler, Boolean open, ServerObject serverObject) throws IOException {
+    public static void handleCommand(ClientSocketHandler clientSocketHandler, ServerState serverState, ServerObject serverObject) throws IOException {
         if (serverObject.getCommand() == 0){
             clientSocketHandler.setPassword(serverObject.getPassword());
             server.getMachineToSocketMap().put(serverObject.getDeviceNum(), clientSocketHandler);
