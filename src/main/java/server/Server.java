@@ -1,13 +1,11 @@
 package server;
 
-import ch.qos.logback.core.net.server.Client;
 import lombok.Getter;
 import server.model.ServerState;
 import server.socket.ClientSocketHandler;
 import server.socket.ServerSocketHandler;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.util.HashMap;
 @Getter
 public class Server {
