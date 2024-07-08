@@ -4,19 +4,21 @@ import lombok.Getter;
 import lombok.Setter;
 import server.Server;
 import server.controller.ClientController;
+import server.controller.ServerController;
 import server.model.ServerObject;
+import server.parsers.ServerObjectParser;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Optional;
 
 @Getter
 @Setter
 public class ClientSocketHandler extends Thread{
 
-    ServerObject serverObject;
     Integer clientNumber;
     String password;
     Socket clientSocket;
@@ -41,6 +43,12 @@ public class ClientSocketHandler extends Thread{
                     result.write(buffer, 0, b);
                 }
                 System.out.println(result);
+
+                ServerObject serverObject = null;
+                if (result.size() > 1){
+                    serverObject = ServerObjectParser.parse(result.toString(), Optional.of(clientNumber));
+                    ServerController.handleCommand(this, serverObject);
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

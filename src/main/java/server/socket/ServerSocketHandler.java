@@ -37,11 +37,7 @@ public class ServerSocketHandler extends Thread {
                 System.out.println("CLIENT CONNECTING!" + clientSocket);
                 executor.submit(()->{
                     ClientSocketHandler clientSocketHandler = null;
-                    try {
-                        clientSocketHandler = new ClientSocketHandler(clientSocket, clientNumber++);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    clientSocketHandler = new ClientSocketHandler(clientSocket, clientNumber++);
                     clientSocketHandler.start();
                 });
                 // break;

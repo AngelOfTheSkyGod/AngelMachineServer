@@ -11,8 +11,8 @@ import java.net.Socket;
 import java.util.HashMap;
 @Getter
 public class Server {
-    HashMap<Integer, ClientSocketHandler> machineToSocketMap = new HashMap<>();
-    HashMap<Integer, Integer> clientToMachineMap = new HashMap<>();
+    HashMap<String, ClientSocketHandler> machineToSocketMap = new HashMap<>();
+    HashMap<Integer, String> clientToMachineMap = new HashMap<>();
     public static Server server = null;
     public static ServerState serverState;
     int port;

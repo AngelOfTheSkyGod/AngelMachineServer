@@ -10,7 +10,7 @@ import java.util.Optional;
 // /r/n
 public class ServerObjectParser {
 
-    public ServerObject getParsedServerObject(String clientResponse, Optional<Integer> deviceNum){
+    public static ServerObject parse(String clientResponse, Optional<Integer> deviceNum){
 
         String[] objectFieldArray = clientResponse.split("\n");
         Integer num = deviceNum.orElse(-1);
