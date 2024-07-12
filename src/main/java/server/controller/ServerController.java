@@ -45,6 +45,7 @@ public class ServerController {
     public static void setUpMachine(ClientSocketHandler clientSocketHandler, ServerObject serverObject){
         clientSocketHandler.setPassword(serverObject.getPassword());
         machineToSocketMap.put(serverObject.getUsername(), clientSocketHandler);
+        System.out.println("machine to socket map: " + machineToSocketMap.toString());
     }
 
     public static void closeServer(){
@@ -52,6 +53,7 @@ public class ServerController {
     }
 
     public static void handleCommand(ClientSocketHandler clientSocketHandler, ServerObject serverObject) throws IOException {
+        System.out.println("command: " + serverObject);
         if (serverObject.getCommand() == 0){
             setUpMachine(clientSocketHandler, serverObject);
         }else if (serverObject.getCommand() == 1){
