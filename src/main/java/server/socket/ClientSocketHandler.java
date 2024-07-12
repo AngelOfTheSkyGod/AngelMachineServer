@@ -41,7 +41,7 @@ public class ClientSocketHandler extends Thread{
                 int b;
                 while((b = in.read(buffer)) != -1){
                     result.write(buffer, 0, b);
-                    System.out.println("receiving: " +  result);
+                    System.out.println("receiving2: " +  result);
                 }
                 System.out.println(result);
 
