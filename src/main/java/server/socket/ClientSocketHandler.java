@@ -42,9 +42,11 @@ public class ClientSocketHandler extends Thread{
                 while((b = in.read(buffer)) != -1){
                     result.write(buffer, 0, b);
                     System.out.println("receiving2: " +  result);
+                    System.out.println("in loop");
                 }
+                System.out.println("out of loop");
                 System.out.println(result);
-
+                System.out.println("after result");
                 ServerObject serverObject = null;
                 System.out.println("result size: " + result.size() + " result: " + result);
                 if (result.size() > 1){
