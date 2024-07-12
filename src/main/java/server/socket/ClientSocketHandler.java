@@ -43,7 +43,7 @@ public class ClientSocketHandler extends Thread{
                     System.out.println("in loop");
                     result.write(buffer, 0, b);
                     System.out.println("receiving2: " +  result);
-                    System.out.println("in loop");
+                    System.out.println("in loop2");
                 }
                 System.out.println("out of loop");
                 System.out.println(result);
