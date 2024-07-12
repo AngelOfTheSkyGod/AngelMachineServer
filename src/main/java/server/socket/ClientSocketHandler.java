@@ -40,10 +40,10 @@ public class ClientSocketHandler extends Thread{
                 byte[] buffer = new byte[1024];
                 int b;
                 while((b = in.read(buffer)) != -1){
-                    System.out.println("in loop");
+                    System.out.println("in loop" + b);
                     result.write(buffer, 0, b);
                     System.out.println("receiving2: " +  result);
-                    System.out.println("in loop2");
+                    System.out.println("in loop2" + b);
                 }
                 System.out.println("out of loop");
                 System.out.println(result);
