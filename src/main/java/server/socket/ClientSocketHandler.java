@@ -39,6 +39,7 @@ public class ClientSocketHandler extends Thread{
             while(Server.serverState.isOpened()){
                 byte[] buffer = new byte[1024];
                 int length = in.read();
+                System.out.println("length: " + length);
                 int bytesRead = 0;
                 while (bytesRead < length){
                     bytesRead += in.read(buffer);
