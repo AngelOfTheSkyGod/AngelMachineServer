@@ -39,11 +39,11 @@ public class ClientSocketHandler extends Thread{
             ByteArrayOutputStream result = new ByteArrayOutputStream();
             while(Server.serverState.isOpened()){
                 byte[] buffer = new byte[1024];
-                byte[] lengthBuffer = new byte[1];
-                int length = in.read(lengthBuffer);
-                System.out.println("length buffer" + Arrays.toString(lengthBuffer));
+                System.out.println("length buffer" + Arrays.toString(buffer));
                 System.out.println("length: " + 1024);
-                int bytesRead = 0;
+                int bytesRead = in.read(buffer, 0, 1);
+                int length = buffer[0];
+                System.out.println("length: " + length);
                 while (bytesRead < 1024){
                     bytesRead += in.read(buffer);
                     result.write(buffer, 0, bytesRead);
