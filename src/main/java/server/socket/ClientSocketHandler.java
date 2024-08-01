@@ -38,12 +38,11 @@ public class ClientSocketHandler extends Thread{
             ByteArrayOutputStream result = new ByteArrayOutputStream();
             while(Server.serverState.isOpened()){
                 byte[] buffer = new byte[1024];
-                int b;
-                while((b = in.read(buffer)) != -1){
-                    System.out.println("in loop" + b);
-                    result.write(buffer, 0, b);
-                    System.out.println("receiving2: " +  result);
-                    System.out.println("in loop2" + b);
+                int length = in.read();
+                int bytesRead = 0;
+                while (bytesRead < length){
+                    bytesRead += in.read(buffer);
+                    result.write(buffer, 0, bytesRead);
                 }
                 System.out.println("out of loop");
                 System.out.println(result);
