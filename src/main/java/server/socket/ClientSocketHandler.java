@@ -39,9 +39,9 @@ public class ClientSocketHandler extends Thread{
             ByteArrayOutputStream result = new ByteArrayOutputStream();
             while(Server.serverState.isOpened()){
                 byte[] buffer = new byte[1024];
-                System.out.println("length buffer" + Arrays.toString(buffer));
                 int bytesRead = in.read(buffer, 0, 4);
                 int length = buffer[0];
+                System.out.println("buffer: " + Arrays.toString(buffer));
                 result.write(buffer, 0, 4);
                 System.out.println("length: " + result);
                 result.reset();
