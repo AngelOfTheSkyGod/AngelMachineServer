@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Optional;
 
 @Getter
@@ -40,7 +41,7 @@ public class ClientSocketHandler extends Thread{
                 byte[] buffer = new byte[1024];
                 byte[] lengthBuffer = new byte[1];
                 int length = in.read(lengthBuffer);
-                System.out.println("length buffer" + lengthBuffer);
+                System.out.println("length buffer" + Arrays.toString(lengthBuffer));
                 System.out.println("length: " + 1024);
                 int bytesRead = 0;
                 while (bytesRead < 1024){
