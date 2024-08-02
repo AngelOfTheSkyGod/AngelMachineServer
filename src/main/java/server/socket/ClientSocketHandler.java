@@ -40,11 +40,12 @@ public class ClientSocketHandler extends Thread{
             result.flush();
             result.reset();
             while(Server.serverState.isOpened()){
-                byte[] buffer = new byte[1024];
-                in.read(buffer, 0, 1);
-                int length = Byte.toUnsignedInt(buffer[0]);
+                byte[] lengthBuffer = new byte[1];
+                in.read(lengthBuffer, 0, 1);
+                int length = Byte.toUnsignedInt(lengthBuffer[0]);
                 System.out.println("length: " + length);
                 int bytesRead = 0;
+                byte[] buffer = new byte[1024];
                 while (bytesRead <= length){
                     bytesRead += in.read(buffer);
                     result.write(buffer, 0, bytesRead);
