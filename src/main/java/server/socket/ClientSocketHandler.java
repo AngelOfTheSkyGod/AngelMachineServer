@@ -37,6 +37,8 @@ public class ClientSocketHandler extends Thread{
             clientController = new ClientController(clientSocket, in, out);
 
             ByteArrayOutputStream result = new ByteArrayOutputStream();
+            result.flush();
+            result.reset();
             while(Server.serverState.isOpened()){
                 byte[] buffer = new byte[1024];
                 in.read(buffer, 0, 1);
