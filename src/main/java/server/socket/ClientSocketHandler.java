@@ -13,9 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.Optional;
 
 @Getter
@@ -46,22 +44,23 @@ public class ClientSocketHandler extends Thread{
                 System.out.println("length: " + length);
                 int totalBytesRead = 0;
                 int bytesRead = 0;
+                int throwArray = in.read(buffer, 0, 2);
                 while (totalBytesRead < length){
                     bytesRead = in.read(buffer, 0, Math.min(buffer.length, length - totalBytesRead));
                     if (bytesRead == -1) break;  // End of stream
                     totalBytesRead += bytesRead;
                     result.write(buffer, 0, bytesRead);
                 }
-                System.out.println("Out of loop");
-
-                byte[] byteArray = result.toByteArray();
-                String base64String = Base64.getEncoder().encodeToString(byteArray);
-                System.out.println(base64String);  // Base64 representation
-//                if (result.size() > 1){
-//                    serverObject = ServerObjectParser.parse(result.toString(), Optional.of(clientNumber));
-//                    System.out.println("serverobject: " + serverObject);
-//                    ServerController.handleCommand(this, serverObject);
-//                }
+                System.out.println("out of loop");
+                System.out.println(result);
+                System.out.println("after result");
+                ServerObject serverObject = null;
+                System.out.println("result size:\n" + result.size() + "\nresult:\n" + result);
+                if (result.size() > 1){
+                    serverObject = ServerObjectParser.parse(result.toString(), Optional.of(clientNumber));
+                    System.out.println("serverobject: " + serverObject);
+                    ServerController.handleCommand(this, serverObject);
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
