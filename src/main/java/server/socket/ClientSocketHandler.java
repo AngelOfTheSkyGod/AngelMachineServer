@@ -40,7 +40,7 @@ public class ClientSocketHandler extends Thread{
             while(Server.serverState.isOpened()){
                 byte[] buffer = new byte[1024];
                 in.read(buffer, 0, 1);
-                int length = buffer[0];
+                int length = Byte.toUnsignedInt(buffer[0]);
                 System.out.println("length: " + length);
                 int bytesRead = 0;
                 while (bytesRead <= length){
