@@ -37,8 +37,6 @@ public class ClientSocketHandler extends Thread{
             clientController = new ClientController(clientSocket, in, out);
 
             ByteArrayOutputStream result = new ByteArrayOutputStream();
-            result.flush();
-            result.reset();
             while(Server.serverState.isOpened()){
                 byte[] buffer = new byte[1024];
                 in.read(buffer, 0, 1);
@@ -50,7 +48,7 @@ public class ClientSocketHandler extends Thread{
                     result.write(buffer, 0, bytesRead);
                 }
                 System.out.println("out of loop");
-                System.out.println(result);
+                System.out.println(result.toString());
                 System.out.println("after result");
                 ServerObject serverObject = null;
                 System.out.println("result size:\n" + result.size() + "\nresult:\n" + result);
