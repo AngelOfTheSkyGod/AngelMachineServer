@@ -51,7 +51,7 @@ public class ClientSocketHandler extends Thread{
                 System.out.println(result);
                 System.out.println("after result");
                 ServerObject serverObject = null;
-                System.out.println("result size: " + result.size() + " result: " + result);
+                System.out.println("result size:\n" + result.size() + "\nresult:\n" + result);
                 if (result.size() > 1){
                     serverObject = ServerObjectParser.parse(result.toString(), Optional.of(clientNumber));
                     System.out.println("serverobject: " + serverObject);
