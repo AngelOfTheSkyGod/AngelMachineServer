@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -51,7 +52,7 @@ public class ClientSocketHandler extends Thread{
                     result.write(buffer, 0, bytesRead);
                 }
                 System.out.println("out of loop");
-                System.out.println(result);
+                System.out.println(result.toString(StandardCharsets.UTF_8));
                 System.out.println("after result");
                 ServerObject serverObject = null;
                 System.out.println("result size:\n" + result.size() + "\nresult:\n" + result);
