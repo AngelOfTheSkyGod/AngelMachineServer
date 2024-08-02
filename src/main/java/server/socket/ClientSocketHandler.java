@@ -42,15 +42,11 @@ public class ClientSocketHandler extends Thread{
                 in.read(buffer, 0, 1);
                 int length = Byte.toUnsignedInt(buffer[0]);
                 System.out.println("length: " + length);
-                int bytesRead = 0;
-                while (bytesRead <= length){
-                    System.out.println("bytes read" + bytesRead);
-                    System.out.println(result);
-                    int packetLength = in.read(buffer);
-                    if (packetLength == -1)break;
-                    bytesRead += packetLength;
+                int totalBytesRead = 0;
+                while (totalBytesRead <= length){
+                    int bytesRead =  in.read(buffer);
+                    totalBytesRead += bytesRead;
                     result.write(buffer, 0, bytesRead);
-                    System.out.println(result);
                 }
                 System.out.println("out of loop");
                 System.out.println(result);
