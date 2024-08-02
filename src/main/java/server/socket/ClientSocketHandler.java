@@ -43,12 +43,13 @@ public class ClientSocketHandler extends Thread{
                 int length = Byte.toUnsignedInt(buffer[0]);
                 System.out.println("length: " + length);
                 int bytesRead = 0;
-                while (bytesRead <= length){
+                while (bytesRead < length){
                     bytesRead += in.read(buffer);
+                    if (bytesRead == -1)break;
                     result.write(buffer, 0, bytesRead);
                 }
                 System.out.println("out of loop");
-                System.out.println(result.toString());
+                System.out.println(result);
                 System.out.println("after result");
                 ServerObject serverObject = null;
                 System.out.println("result size:\n" + result.size() + "\nresult:\n" + result);
