@@ -44,12 +44,12 @@ public class ClientSocketHandler extends Thread{
                 System.out.println("length: " + length);
                 int bytesRead = 0;
                 while (bytesRead < length){
-                    System.out.println("result before: " + result);
+                    System.out.println(result);
                     int packetLength = in.read(buffer);
                     if (packetLength == -1)break;
                     bytesRead += packetLength;
                     result.write(buffer, 0, bytesRead);
-                    System.out.println("result after: " + result);
+                    System.out.println(result);
                 }
                 System.out.println("out of loop");
                 System.out.println(result);
