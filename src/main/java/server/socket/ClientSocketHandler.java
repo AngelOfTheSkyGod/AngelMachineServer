@@ -43,9 +43,9 @@ public class ClientSocketHandler extends Thread{
                 int length = Byte.toUnsignedInt(buffer[0]);
                 System.out.println("length: " + length);
                 int totalBytesRead = 0;
+                int bytesRead = 0;
                 while (totalBytesRead <= length){
-                    int bytesRead =  in.read(buffer);
-                    totalBytesRead += bytesRead;
+                    bytesRead = in.read(buffer, 0, Math.min(buffer.length, length - totalBytesRead));                    totalBytesRead += bytesRead;
                     result.write(buffer, 0, bytesRead);
                 }
                 System.out.println("out of loop");
