@@ -39,10 +39,10 @@ public class ServerSocketHandler extends Thread {
                     ClientSocketHandler clientSocketHandler = null;
                     try {
                         clientSocketHandler = new ClientSocketHandler(clientSocket, clientNumber++);
+                        clientSocketHandler.start();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    clientSocketHandler.start();
                 });
                 // break;
 

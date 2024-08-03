@@ -34,6 +34,7 @@ public class ClientSocketHandler extends Thread{
     @Override
     public void run() {
         try {
+            System.out.println("client socket handler running");
             InputStream in = clientSocket.getInputStream();
             OutputStream out = clientSocket.getOutputStream();
             clientController = new ClientController(clientSocket, in, out);
