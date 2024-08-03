@@ -8,21 +8,26 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class ServerController {
-    static Server server;
+    static Server server = null;
     static HashMap<String, ClientSocketHandler> machineToSocketMap = null;
     static HashMap<Integer, String> clientToMachineMap = null;
-    ServerController serverController = null;
+    static ServerController serverController = null;
 
     public ServerController() throws IOException {
         server = Server.getServer();
+        System.out.println("server retrieved");
         machineToSocketMap = server.getMachineToSocketMap();
+        System.out.println("machine to socket map");
         clientToMachineMap = server.getClientToMachineMap();
+        System.out.println("client to machine map");
     }
 
     public ServerController getServerController() throws IOException {
         if (serverController == null){
+            System.out.println("making new server controller");
             serverController = new ServerController();
         }
+        System.out.println("returning: " + serverController);
         return serverController;
     }
 
