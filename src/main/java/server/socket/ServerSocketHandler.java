@@ -38,6 +38,7 @@ public class ServerSocketHandler extends Thread {
                 executor.submit(()->{
                     ClientSocketHandler clientSocketHandler = null;
                     try {
+                        System.out.println("client socket handler called");
                         clientSocketHandler = new ClientSocketHandler(clientSocket, clientNumber++);
                         clientSocketHandler.start();
                     } catch (IOException e) {
