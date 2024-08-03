@@ -14,7 +14,7 @@ public class Server {
     public static Server server = null;
     public static ServerState serverState;
     static int port;
-    static ServerSocketHandler serverSocketHandler = null;
+    ServerSocketHandler serverSocketHandler = null;
     public Server() throws IOException {
         serverState = new ServerState();
         port = 8081;
