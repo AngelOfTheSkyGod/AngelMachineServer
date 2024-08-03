@@ -7,6 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
+@ToString
 public class ServerObject {
     int command;
     String username;
