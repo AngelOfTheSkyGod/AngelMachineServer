@@ -28,7 +28,7 @@ public class ClientSocketHandler extends Thread{
     ClientSocketHandler(Socket clientSocket, int clientNumber) throws IOException {
         this.clientSocket = clientSocket;
         this.clientNumber = clientNumber;
-        serverController = new ServerController();
+        serverController = serverController.getServerController();
     }
 
     @Override
@@ -61,7 +61,7 @@ public class ClientSocketHandler extends Thread{
                 if (result.size() > 1){
                     serverObject = ServerObjectParser.parse(result.toString(), Optional.of(clientNumber));
                     System.out.println("serverobject: " + serverObject);
-                    ServerController.handleCommand(this, serverObject);
+                    serverController.handleCommand(this, serverObject);
                 }
             }
         } catch (IOException e) {

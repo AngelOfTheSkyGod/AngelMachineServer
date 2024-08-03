@@ -11,16 +11,26 @@ public class ServerController {
     static Server server;
     static HashMap<String, ClientSocketHandler> machineToSocketMap = null;
     static HashMap<Integer, String> clientToMachineMap = null;
+    ServerController serverController = null;
+
     public ServerController() throws IOException {
         server = Server.getServer();
         machineToSocketMap = server.getMachineToSocketMap();
         clientToMachineMap = server.getClientToMachineMap();
     }
-    public static boolean isCorrectPassword(ClientSocketHandler device, String password){
+
+    public ServerController getServerController() throws IOException {
+        if (serverController == null){
+            serverController = new ServerController();
+        }
+        return serverController;
+    }
+
+    public boolean isCorrectPassword(ClientSocketHandler device, String password){
         return Objects.equals(device.getPassword(), password);
     }
 
-    public static void handleMachineToClientSetup(ClientSocketHandler clientSocketHandler, ServerObject serverObject){
+    public void handleMachineToClientSetup(ClientSocketHandler clientSocketHandler, ServerObject serverObject){
         String machineUsername = serverObject.getUsername();
         Integer clientNum = clientSocketHandler.getClientNumber();
         ClientSocketHandler device = machineToSocketMap.get(machineUsername);
@@ -29,7 +39,7 @@ public class ServerController {
         }
     }
 
-    public static void handleSwitchFlip(ClientSocketHandler clientSocketHandler, ServerObject serverObject) throws IOException {
+    public void handleSwitchFlip(ClientSocketHandler clientSocketHandler, ServerObject serverObject) throws IOException {
         String machineUsername = serverObject.getUsername();
         Integer clientNum = clientSocketHandler.getClientNumber();
         ClientSocketHandler device = machineToSocketMap.get(machineUsername);
@@ -40,17 +50,17 @@ public class ServerController {
         }
     }
 
-    public static void setUpMachine(ClientSocketHandler clientSocketHandler, ServerObject serverObject){
+    public void setUpMachine(ClientSocketHandler clientSocketHandler, ServerObject serverObject){
         clientSocketHandler.setPassword(serverObject.getPassword());
         machineToSocketMap.put(serverObject.getUsername(), clientSocketHandler);
         System.out.println("machine to socket map: " + machineToSocketMap.toString());
     }
 
-    public static void closeServer(){
+    public void closeServer(){
         Server.serverState.setOpened(false);
     }
 
-    public static void handleCommand(ClientSocketHandler clientSocketHandler, ServerObject serverObject) throws IOException {
+    public void handleCommand(ClientSocketHandler clientSocketHandler, ServerObject serverObject) throws IOException {
         System.out.println("command: " + serverObject);
         if (serverObject.getCommand() == 0){
             setUpMachine(clientSocketHandler, serverObject);

@@ -10,7 +10,7 @@ public class AngelserverApplication {
 
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(AngelserverApplication.class, args);
-		Server server = new Server();
+		Server server = Server.getServer();
 		server.getServerSocketHandler().start();
 	}
 
