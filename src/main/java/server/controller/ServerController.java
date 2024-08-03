@@ -9,18 +9,13 @@ import java.util.Objects;
 
 public class ServerController {
     static Server server;
-
-    static {
-        try {
-            server = Server.getServer();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    static HashMap<String, ClientSocketHandler> machineToSocketMap = null;
+    static HashMap<Integer, String> clientToMachineMap = null;
+    public ServerController() throws IOException {
+        server = Server.getServer();
+        machineToSocketMap = server.getMachineToSocketMap();
+        clientToMachineMap = server.getClientToMachineMap();
     }
-
-    static HashMap<String, ClientSocketHandler> machineToSocketMap = server.getMachineToSocketMap();
-    static HashMap<Integer, String> clientToMachineMap = server.getClientToMachineMap();
-
     public static boolean isCorrectPassword(ClientSocketHandler device, String password){
         return Objects.equals(device.getPassword(), password);
     }

@@ -24,9 +24,11 @@ public class ClientSocketHandler extends Thread{
     String password;
     Socket clientSocket;
     ClientController clientController;
-    ClientSocketHandler(Socket clientSocket, int clientNumber) {
+    ServerController serverController;
+    ClientSocketHandler(Socket clientSocket, int clientNumber) throws IOException {
         this.clientSocket = clientSocket;
         this.clientNumber = clientNumber;
+        serverController = new ServerController();
     }
 
     @Override

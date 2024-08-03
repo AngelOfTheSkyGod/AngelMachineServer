@@ -13,8 +13,8 @@ public class Server {
     HashMap<Integer, String> clientToMachineMap = new HashMap<>();
     public static Server server = null;
     public static ServerState serverState;
-    int port;
-    ServerSocketHandler serverSocketHandler = null;
+    static int port;
+    static ServerSocketHandler serverSocketHandler = null;
     public Server() throws IOException {
         serverState = new ServerState();
         port = 8081;
