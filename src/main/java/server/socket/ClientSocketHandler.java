@@ -29,7 +29,7 @@ public class ClientSocketHandler extends Thread{
         this.clientSocket = clientSocket;
         this.clientNumber = clientNumber;
         System.out.println("before server controller is fetched");
-        serverController = serverController.getServerController();
+        serverController = ServerController.getServerController();
         System.out.println("constructor called");
     }
 

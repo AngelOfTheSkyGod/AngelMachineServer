@@ -22,7 +22,7 @@ public class ServerController {
         System.out.println("client to machine map");
     }
 
-    public ServerController getServerController() throws IOException {
+    public static ServerController getServerController() throws IOException {
         if (serverController == null){
             System.out.println("making new server controller");
             serverController = new ServerController();
