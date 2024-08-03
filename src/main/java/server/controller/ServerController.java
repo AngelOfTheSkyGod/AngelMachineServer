@@ -8,15 +8,18 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class ServerController {
-    static Server server = null;
-    static HashMap<String, ClientSocketHandler> machineToSocketMap = null;
-    static HashMap<Integer, String> clientToMachineMap = null;
+    static Server server;
 
-    public ServerController() throws IOException {
-        server = Server.getServer();
-        machineToSocketMap = server.getMachineToSocketMap();
-        clientToMachineMap = server.getClientToMachineMap();
+    static {
+        try {
+            server = Server.getServer();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+    static HashMap<String, ClientSocketHandler> machineToSocketMap = server.getMachineToSocketMap();
+    static HashMap<Integer, String> clientToMachineMap = server.getClientToMachineMap();
 
     public static boolean isCorrectPassword(ClientSocketHandler device, String password){
         return Objects.equals(device.getPassword(), password);
