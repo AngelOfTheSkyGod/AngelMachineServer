@@ -15,19 +15,14 @@ public class ServerController {
 
     public ServerController() throws IOException {
         server = Server.getServer();
-        System.out.println("server retrieved");
         machineToSocketMap = server.getMachineToSocketMap();
-        System.out.println("machine to socket map");
         clientToMachineMap = server.getClientToMachineMap();
-        System.out.println("client to machine map");
     }
 
     public static ServerController getServerController() throws IOException {
         if (serverController == null){
-            System.out.println("making new server controller");
             serverController = new ServerController();
         }
-        System.out.println("returning: " + serverController);
         return serverController;
     }
 
@@ -66,7 +61,7 @@ public class ServerController {
     }
 
     public void handleCommand(ClientSocketHandler clientSocketHandler, ServerObject serverObject) throws IOException {
-        System.out.println("command: " + serverObject);
+        System.out.println("command: " + serverObject.toString());
         if (serverObject.getCommand() == 0){
             setUpMachine(clientSocketHandler, serverObject);
         }else if (serverObject.getCommand() == 1){
