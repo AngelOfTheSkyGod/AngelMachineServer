@@ -28,6 +28,7 @@ public class ClientSocketHandler extends Thread{
     ClientSocketHandler(Socket clientSocket, int clientNumber) throws IOException {
         this.clientSocket = clientSocket;
         this.clientNumber = clientNumber;
+        System.out.println("before server controller is fetched");
         serverController = serverController.getServerController();
         System.out.println("constructor called");
     }
