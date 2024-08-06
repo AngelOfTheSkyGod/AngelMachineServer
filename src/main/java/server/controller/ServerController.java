@@ -8,16 +8,9 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class ServerController {
-    static Server server = null;
-    static HashMap<String, ClientSocketHandler> machineToSocketMap = null;
-    static HashMap<Integer, String> clientToMachineMap = null;
+    static HashMap<String, ClientSocketHandler> machineToSocketMap = Server.machineToSocketMap;
+    static HashMap<Integer, String> clientToMachineMap = Server.clientToMachineMap;
     static ServerController serverController = null;
-
-    public ServerController() throws IOException {
-        server = Server.getServer();
-        machineToSocketMap = server.getMachineToSocketMap();
-        clientToMachineMap = server.getClientToMachineMap();
-    }
 
     public static ServerController getServerController() throws IOException {
         if (serverController == null){
@@ -26,17 +19,19 @@ public class ServerController {
         return serverController;
     }
 
-    public boolean isCorrectPassword(ClientSocketHandler device, String password){
+    public static boolean isCorrectPassword(ClientSocketHandler device, String password){
         return Objects.equals(device.getPassword(), password);
     }
 
-    public void handleMachineToClientSetup(ClientSocketHandler clientSocketHandler, ServerObject serverObject){
+    public static int handleMachineToClientSetup(ServerObject serverObject){
         String machineUsername = serverObject.getUsername();
-        Integer clientNum = clientSocketHandler.getClientNumber();
+        Integer clientNum = serverObject.getDeviceNum();
         ClientSocketHandler device = machineToSocketMap.get(machineUsername);
         if (machineToSocketMap.containsKey(machineUsername) && Objects.equals(clientToMachineMap.getOrDefault(clientNum, ""), "") && isCorrectPassword(device, serverObject.getPassword())){
-            clientToMachineMap.put(clientSocketHandler.getClientNumber(), serverObject.getUsername());
+            clientToMachineMap.put(clientNum, serverObject.getUsername());
+            return 1;
         }
+        return 0;
     }
 
     public void handleSwitchFlip(ClientSocketHandler clientSocketHandler, ServerObject serverObject) throws IOException {
@@ -65,7 +60,7 @@ public class ServerController {
         if (serverObject.getCommand() == 0){
             setUpMachine(clientSocketHandler, serverObject);
         }else if (serverObject.getCommand() == 1){
-            handleMachineToClientSetup(clientSocketHandler, serverObject);
+            handleMachineToClientSetup(serverObject);
         }else if (serverObject.getCommand() == 2){
             handleSwitchFlip(clientSocketHandler, serverObject);
         }else if (serverObject.getCommand() == 3){

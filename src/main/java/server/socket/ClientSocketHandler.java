@@ -45,7 +45,7 @@ public class ClientSocketHandler extends Thread{
                 int length = Byte.toUnsignedInt(buffer[0]);
                 int totalBytesRead = 0;
                 int bytesRead = 0;
-                int throwArray = in.read(buffer, 0, 3);
+                in.read(buffer, 0, 3);
                 while (totalBytesRead < length){
                     bytesRead = in.read(buffer, 0, Math.min(buffer.length, length - totalBytesRead));
                     if (bytesRead == -1) break;  // End of stream

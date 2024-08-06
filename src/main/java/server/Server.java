@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.util.HashMap;
 @Getter
 public class Server {
-    HashMap<String, ClientSocketHandler> machineToSocketMap = new HashMap<>();
-    HashMap<Integer, String> clientToMachineMap = new HashMap<>();
+    public static HashMap<String, ClientSocketHandler> machineToSocketMap = new HashMap<>();
+    public static HashMap<Integer, String> clientToMachineMap = new HashMap<>();
     public static Server server = null;
     public static ServerState serverState;
     static int port;
