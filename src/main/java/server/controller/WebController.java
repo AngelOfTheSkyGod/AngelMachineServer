@@ -1,26 +1,22 @@
 package server.controller;
 
-import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicLong;
+import java.io.IOException;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import server.Server;
-import server.model.ServerObject;
-import server.socket.ClientSocketHandler;
+import server.model.WebClientObject;
 
 
 @RestController
 public class WebController {
 
-    static HashMap<String, ClientSocketHandler> machineToSocketMap = Server.machineToSocketMap;
-    static HashMap<Integer, String> clientToMachineMap = Server.clientToMachineMap;
-    @CrossOrigin(origins = "www.quinonesangel.com:3000")
+//    @CrossOrigin(origins = "www.quinonesangel.com:3000")
     @GetMapping("/connect")
-    public int connect(ServerObject object) {
+    public int connect(WebClientObject object) {
         return ServerController.handleMachineToClientSetup(object);
     }
-
+    @GetMapping("/flipSwitch")
+    public boolean flipSwitch(WebClientObject object) throws IOException {
+        return ServerController.handleSwitchFlip(object);
+    }
 }

@@ -1,6 +1,7 @@
 package server.controller;
 import server.model.ServerObject;
 import server.Server;
+import server.model.WebClientObject;
 import server.socket.ClientSocketHandler;
 
 import java.io.IOException;
@@ -9,7 +10,7 @@ import java.util.Objects;
 
 public class ServerController {
     static HashMap<String, ClientSocketHandler> machineToSocketMap = Server.machineToSocketMap;
-    static HashMap<Integer, String> clientToMachineMap = Server.clientToMachineMap;
+    static HashMap<String, String> clientToMachineMap = Server.clientToMachineMap;
     static ServerController serverController = null;
 
     public static ServerController getServerController() throws IOException {
@@ -22,27 +23,33 @@ public class ServerController {
     public static boolean isCorrectPassword(ClientSocketHandler device, String password){
         return Objects.equals(device.getPassword(), password);
     }
-
-    public static int handleMachineToClientSetup(ServerObject serverObject){
-        String machineUsername = serverObject.getUsername();
-        Integer clientNum = serverObject.getDeviceNum();
+    public static boolean isAuthenticated(WebClientObject webClientObject){
+        String machineUsername = webClientObject.getMachineUsername();
+        String machinePassword = webClientObject.getMachinePassword();
+        String clientUserName = webClientObject.getUsername();
         ClientSocketHandler device = machineToSocketMap.get(machineUsername);
-        if (machineToSocketMap.containsKey(machineUsername) && Objects.equals(clientToMachineMap.getOrDefault(clientNum, ""), "") && isCorrectPassword(device, serverObject.getPassword())){
-            clientToMachineMap.put(clientNum, serverObject.getUsername());
+        return machineToSocketMap.containsKey(machineUsername) && Objects.equals(clientToMachineMap.getOrDefault(clientUserName, ""), "") && isCorrectPassword(device, machinePassword);
+    }
+    public static int handleMachineToClientSetup(WebClientObject webClientObject){
+        String machineUsername = webClientObject.getMachineUsername();
+        String clientUserName = webClientObject.getUsername();
+        if (isAuthenticated(webClientObject)){
+            clientToMachineMap.put(clientUserName, machineUsername);
             return 1;
         }
         return 0;
     }
 
-    public void handleSwitchFlip(ClientSocketHandler clientSocketHandler, ServerObject serverObject) throws IOException {
-        String machineUsername = serverObject.getUsername();
-        Integer clientNum = clientSocketHandler.getClientNumber();
+    public static boolean handleSwitchFlip(WebClientObject webClientObject) throws IOException {
+        if (!isAuthenticated(webClientObject)){
+            return false;
+        }
+        String machineUsername = webClientObject.getMachineUsername();
         ClientSocketHandler device = machineToSocketMap.get(machineUsername);
         ServerObject commandObject = new ServerObject();
         commandObject.setCommand(0);
-        if (machineToSocketMap.containsKey(serverObject.getUsername()) && Objects.equals(clientToMachineMap.getOrDefault(clientNum, ""), machineUsername) && isCorrectPassword(device, serverObject.getPassword())){
-            device.getClientController().sendCommand(clientSocketHandler, commandObject);
-        }
+        device.getClientController().sendCommand(device, commandObject);
+        return true;
     }
 
     public void setUpMachine(ClientSocketHandler clientSocketHandler, ServerObject serverObject){
@@ -54,15 +61,10 @@ public class ServerController {
     public void closeServer(){
         Server.serverState.setOpened(false);
     }
-
     public void handleCommand(ClientSocketHandler clientSocketHandler, ServerObject serverObject) throws IOException {
         System.out.println("command: " + serverObject.toString());
         if (serverObject.getCommand() == 0){
             setUpMachine(clientSocketHandler, serverObject);
-        }else if (serverObject.getCommand() == 1){
-            handleMachineToClientSetup(serverObject);
-        }else if (serverObject.getCommand() == 2){
-            handleSwitchFlip(clientSocketHandler, serverObject);
         }else if (serverObject.getCommand() == 3){
             closeServer();
         }

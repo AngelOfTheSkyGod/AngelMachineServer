@@ -10,7 +10,7 @@ import java.util.HashMap;
 @Getter
 public class Server {
     public static HashMap<String, ClientSocketHandler> machineToSocketMap = new HashMap<>();
-    public static HashMap<Integer, String> clientToMachineMap = new HashMap<>();
+    public static HashMap<String, String> clientToMachineMap = new HashMap<>();
     public static Server server = null;
     public static ServerState serverState;
     static int port;
